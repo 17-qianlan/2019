@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>浅蓝</title>
+        <style type="text/css">
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            .box{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100px;
+                height: 100px;
+                background: green;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box"></div>
+        <script>
+            let oBox = document.getElementsByTagName('div')[0];
+            function getStyle(ele, attr) {
+                return window.getComputedStyle? getComputedStyle(ele)[attr] : ele.currentStyle(attr);
+            }
+            // 速度版
+            /*function animation(ele, attr, target) {
+                (function animate(){
+                    cancelAnimationFrame(animate);
+                    let val = parseFloat(getStyle(ele, attr));
+                    val += 10;
+                    target = parseFloat(target);
+                    if (val < target){
+                        requestAnimationFrame(animate);
+                    } else {
+                        cancelAnimationFrame(animate);
+                        val = target;
+                    }
+                    ele.style[attr] = val + 'px';
+                })();
+            }*/
+            // 时间匀速版版
+            /*function animation(ele, attr, target, time){
+                target = parseFloat(target);
+                let val = parseFloat(getStyle(ele, attr));
+                let S = target - val;
+                let startTime = new Date();
+                (function animate(){
+                    let prop = (new Date() - startTime)/time;
+                    if ( prop >= 1) {
+                        prop = 1;
+                    } else {
+                        requestAnimationFrame(animate);
+                    }
+                    ele.style[attr] = val + S*prop*prop + 'px';
+                })();
+            }*/
+            // 时间匀加速
+            function animation(ele, attr, target, time){
+                target = parseFloat(target);
+                let val = parseFloat(getStyle(ele, attr));
+                let S = target - val;
+                let startTime = new Date();
+                (function animate(){
+                    let prop = (new Date() - startTime)/time;
+                    if ( prop >= 1) {
+                        prop = 1;
+                    } else {
+                        requestAnimationFrame(animate);
+                    }
+                    ele.style[attr] = val + S*prop*prop + 'px';
+                })();
+            }
+            animation(oBox, 'left', 1000, 2000);
+        </script>
+    </body>
+</html>
