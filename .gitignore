@@ -12,8 +12,8 @@ pids
 *.pid.lock
 
 # Editor directories and files
-*.idea
-*.vscode
+.idea
+.vscode
 *.dist
 *.sass-cache
 *.css.map
