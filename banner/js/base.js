@@ -1,5 +1,4 @@
 function getStyle(ele, attr) {
-    console.log(ele);
     return window.getComputedStyle? getComputedStyle(ele)[attr] : ele.currentStyle(attr);
 }
 function animate(ele, attr, target, time){
