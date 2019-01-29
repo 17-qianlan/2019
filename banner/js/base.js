@@ -1,7 +1,7 @@
 function getStyle(ele, attr) {
     return window.getComputedStyle? getComputedStyle(ele)[attr] : ele.currentStyle(attr);
 }
-function animate(ele, attr, target, time){
+function animate(ele, attr, target, time, callback){
     target = parseFloat(target);
     let val = parseFloat(getStyle(ele, attr));
     let S = target - val;
@@ -11,9 +11,11 @@ function animate(ele, attr, target, time){
         let prop = (new Date() - startTime)/time;
         if ( prop >= 1) {
             prop = 1;
+            ele.style[attr] = val + S*prop*prop + unit;
+            callback && callback();
         } else {
             requestAnimationFrame(running);
+            ele.style[attr] = val + S*prop*prop + unit;
         }
-        ele.style[attr] = val + S*prop*prop + unit;
     })();
 };

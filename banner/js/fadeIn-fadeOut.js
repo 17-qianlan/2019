@@ -6,42 +6,48 @@
     let oP = aDir.querySelectorAll('p');
     let index = 0;
     const len = oBtn.length - 1;
-    function autoAdd(type = 'timer', i){
+    function banner(fn){
         animate(oLi[index], 'opacity', 0, 1000);
         oBtn[index].classList.remove('active');
-        if (type === 'timer') {
-            index = index >= len? 0: ++index;
-        } else if (type === 'click') {
-            index = i;
-        } else if (type === 'less'){
-            index = index <= 0? len: --index;
-        }
+        fn();
         animate(oLi[index], 'opacity', 1, 1000);
         oBtn[index].classList.add('active');
     }
     for(let i=0; i<oBtn.length; i++){
         oBtn[i].onclick = function(){
-            autoAdd('click', i);
+            banner(function(){
+                index = i;
+            });
         }
     }
     let timer = null;
-    timer = setInterval(autoAdd, 1500);
+    timer = setInterval(function(){
+        banner(function(){
+            index = index >= len? 0: ++index;
+        })
+    }, 2000);
     aBanner.onmouseenter = function(){
-        console.log(1);
         clearInterval(timer);
         animate(aDir, 'opacity', 1, 1000);
     }
     aBanner.onmouseleave = function(){
         animate(aDir, 'opacity', 0, 1000);
-        timer = setInterval(autoAdd, 1500);
+        timer = setInterval(function(){
+            banner(function(){
+                index = index >= len? 0: ++index;
+            })
+        }, 2000);
     }
     for(let i=0; i<oP.length; i++) {
-        oP[i].onclick = function(){
-            if (i === 0) {
-                autoAdd('less');
-            } else {
-                autoAdd();
-            }
+        oP[i].onclick = function () {
+            banner(function () {
+                if (i === 0) {
+                    index = index <= 0 ? len : --index;
+                } else {
+                    index = index >= len ? 0 : ++index;
+                }
+                ;
+            });
         }
     }
 })();

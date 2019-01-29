@@ -9,16 +9,10 @@
         this.len = this.oBtn.length - 1;
         this.timer = null;
     };
-    Banner.prototype.autoAdd = function(type = 'timer', i){
+    Banner.prototype.bannerFn = function(fn){
         animate(this.oImg[this.index], 'opacity', 0, 1000);
         this.oBtn[this.index].classList.remove('active');
-        if (type === 'timer') {
-            this.index = this.index >= this.len? 0: ++this.index;
-        } else if (type === 'click') {
-            this.index = i;
-        } else if (type === 'less'){
-            this.index = this.index <= 0? this.len: --this.index;
-        };
+        fn.call(this);
         animate(this.oImg[this.index], 'opacity', 1, 1000);
         this.oBtn[this.index].classList.add('active');
     };
@@ -26,11 +20,13 @@
         let that = this;
         for (let i=0; i<this.oP.length; i++) {
             this.oP[i].onclick = function() {
-                if (i === 0) {
-                    that.autoAdd('less');
-                } else {
-                    that.autoAdd();
-                };
+                that.bannerFn(function(){
+                    if (i === 0) {
+                        this.index = this.index <= 0? this.len: --this.index;
+                    } else {
+                        this.index = this.index >= this.len? 0: ++this.index;
+                    };
+                });
             }
         };
         return this;
@@ -39,7 +35,9 @@
         let that = this;
         for (let i=0; i< this.len+1; i++) {
             this.oBtn[i].onclick = function(){
-                that.autoAdd('click', i);
+                that.bannerFn(function(){
+                    that.index = i;
+                });
             };
         };
         return this;
@@ -47,8 +45,10 @@
     Banner.prototype.auto = function(){
         let that = this;
         this.timer = setInterval(function(){
-            that.autoAdd.call(that);
-        }, 1500);
+            that.bannerFn.call(that, function(){
+                this.index = this.index >= this.len? 0: ++this.index;
+            });
+        }, 2000);
         return this;
     };
     Banner.prototype.hover = function(){
