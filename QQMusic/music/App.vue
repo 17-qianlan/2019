@@ -1,17 +1,19 @@
 <template>
     <div id="app">
         <Header></Header>
-        <Country></Country>
-        <Area></Area>
+        <Country :region="region"></Country>
+        <Country :region="sheet"></Country>
     </div>
 </template>
 
 <script>
+    import {region, sheet} from './assets/common/js/common';
     export default {
         name: 'app',
         data() {
             return {
-                d: ''
+                region,
+                sheet
             }
         }
     }
@@ -20,6 +22,6 @@
 <style scoped lang="scss">
     #app{
         width: 100%;
-        height: 100%;
+        height: 2000px;
     }
 </style>

@@ -1,12 +1,12 @@
 <template>
     <div class="recommend">
-        <h2>排行榜·地区</h2>
+        <h2>{{region.length > 3? '排行榜·地区' : '热歌'}}</h2>
         <ul class="nav">
             <li v-for="(item, index) of country" :key="index"><span>{{item.name}}</span></li>
         </ul>
         <section class="content">
             <div class="list">
-                <ul class="item clear_fix">
+                <ul class="item clear_fix" ref="list">
                     <li>
                         <div v-for="(item, index) of '0000000000000000'">
                             <a href="" class="db">
@@ -18,15 +18,18 @@
                             </a>
                         </div>
                     </li>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
                 </ul>
             </div>
             <div class="dir clear_fix">
-                <p class="prev fl"><</p>
-                <p class="next fr">></p>
+                <p class="prev fl" ref="prev" @click="dirPrev"><</p>
+                <p class="next fr" ref="next" @click="dirNext">></p>
             </div>
             <div class="btn">
                 <div class="wrap">
-                    <span></span>
+                    <span class="active"></span>
                     <span></span>
                     <span></span>
                     <span></span>
@@ -38,12 +41,26 @@
 </template>
 
 <script>
-    import {region} from '../assets/common/js/common';
+    import animate from '../assets/common/js/move';
     export default {
         name: 'musicCountry',
+        props: ["region"],
         data() {
             return {
-                country: [...region]
+                country: this.region,
+                list: {},
+                num: 0
+            }
+        },
+        methods: {
+            dirNext() {
+                this.list = this.$refs.list;
+                animate.move(this.list, 'left', -1060.44*(++this.num), 1000, () => {
+                    console.log(1);
+                });
+            },
+            dirPrev() {
+
             }
         }
     }
@@ -73,13 +90,14 @@
         .content {
             position: relative;
             width: 100%;
-            height: 400px;
+            height: 450px;
             background: #F9F9F9;
             .list {
                 position: relative;
-                width: 62.5%;
+                width: 70%;
                 height: 400px;
                 margin: auto;
+                overflow: hidden;
                 .item {
                     position: absolute;
                     top: 0;
@@ -94,6 +112,7 @@
                         width: 25%;
                         div {
                             height: 100px;
+                            border-bottom: 1px solid red;
                             a {
                                 display: flex;
                                 align-items: center;
@@ -149,6 +168,29 @@
                     border-top-left-radius: 35px;
                     border-bottom-left-radius: 35px;
                 }
+            }
+            .btn {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                width: 70%;
+                height: 10px;
+                .wrap{
+                    width: 100%;
+                    height: 100%;
+                    margin: auto;
+                    span{
+                        display: inline-block;
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                        background: #000;
+                    }
+                    .active{
+                        background: #ccc;
+                    }
+                }
+
             }
         }
     }

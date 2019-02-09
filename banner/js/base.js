@@ -2,6 +2,7 @@ function getStyle(ele, attr) {
     return window.getComputedStyle? getComputedStyle(ele)[attr] : ele.currentStyle(attr);
 }
 function animate(ele, attr, target, time, callback){
+	// 注: parsefloat和parseIn已被移到了Number上了, 行为保持不变
     target = parseFloat(target);
     let val = parseFloat(getStyle(ele, attr));
     let S = target - val;

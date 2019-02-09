@@ -32,7 +32,7 @@
 <style scoped lang="scss">
     .nav-header {
         display: flex;
-        width: 1200px;
+        width: 70%;
         height: 100px;
         margin: auto;
         font-size: 30px;
