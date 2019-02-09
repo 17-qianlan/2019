@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>deep-shallow-copy</title>
+    </head>
+    <body>
+        <script>
+            (function(){
+                let obj = {
+                    b: [1, 2, 3],
+                    arr: 1
+                }
+                function extend(obj, deep){
+                    if (!/object/i.test(typeof obj)){
+                        throw new Error('请确保您传入的obj是个对象');
+                    }
+                    let newObj = obj instanceof Array? []: {};
+                    for (const key in obj) {
+                        const val = obj[key];
+                        if (deep && /object/i.test(typeof val)){
+                            newObj[key] = extend(val, deep);
+                        } else {
+                            newObj[key] = val;
+                        }
+                    }
+                    return newObj;
+                }
+                // let obj2 = extend('2', true);
+                let obj1 = extend(obj, true);
+                obj1.b.push(4);
+                obj1.a = 111;
+                console.log(obj1);
+                console.log(obj);
+            })();
+        </script>
+    </body>
+</html>
