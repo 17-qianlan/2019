@@ -35,7 +35,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json', '.css'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('music'),
+      '@': resolve('music')
     }
   },
   module: {

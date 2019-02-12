@@ -1,8 +1,8 @@
 <template>
     <div id="app">
         <Header></Header>
-        <Country :region="region"></Country>
-        <Country :region="sheet"></Country>
+        <!--<song :region="sheet"></song>-->
+        <router-view />
     </div>
 </template>
 
@@ -14,9 +14,9 @@
             return {
                 region,
                 sheet
-            }
+            };
         }
-    }
+    };
 </script>
 
 <style scoped lang="scss">
