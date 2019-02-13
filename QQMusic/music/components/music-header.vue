@@ -3,16 +3,18 @@
         <section class="left">
             <div class="logo iconfont icon-yinle2"></div>
             <div class="home"><a href="">首页</a></div>
-            <div class="my-music"><a href="">我的音乐</a></div>
+            <div class="my-music"><router-link to="/not">我的音乐</router-link></div>
         </section>
         <section class="right">
             <div class="input">
                 <input type="text" />
-                <span class="iconfont icon-sousuo1"></span>
+                <router-lingk to="/not">
+                    <span class="iconfont icon-sousuo1"></span>
+                </router-lingk>
             </div>
             <div class="user">
-                <a href="" clasa="dib">登录</a>
-                <a href="" class="dib">注册</a>
+                <router-link to="/not">登录</router-link>
+                <router-link to="/not">注册</router-link>
             </div>
         </section>
     </header>

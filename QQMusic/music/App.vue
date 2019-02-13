@@ -22,6 +22,6 @@
 <style scoped lang="scss">
     #app{
         width: 100%;
-        height: 2000px;
+        height: 100%;
     }
 </style>

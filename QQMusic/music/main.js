@@ -13,6 +13,7 @@ import '../static/icon/iconfont.css';
 // components import
 import Header from './components/music-header';
 import player from './components/player';
+import footer from './components/footer';
 
 Vue.config.productionTip = false;
 Vue.prototype.axios = Axios;
@@ -20,6 +21,7 @@ Vue.prototype.$ = $;
 
 Vue.component('Header', Header);
 Vue.component('player', player);
+Vue.component('Footer', footer);
 
 /* eslint-disable no-new */
 new Vue({

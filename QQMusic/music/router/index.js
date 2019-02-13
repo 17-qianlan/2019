@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 import songList from '../components/list/song-details';
 import Song from '../components/song';
+import not from '../components/not';
 
 // import {region, sheet} from './assets/common/js/common';
 
@@ -18,6 +19,10 @@ export default new Router({
         {
             path: '/song/details/:id',
             component: songList
+        },
+        {
+            path: '/not',
+            component: not
         }
     ]
 });

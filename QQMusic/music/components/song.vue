@@ -4,7 +4,7 @@
         <ul class="nav">
             <li v-for="(item, index) of country" :key="index"><span @click="changeData(item, index)" :class="{highlight: id === item.id}">{{item.name}}</span></li>
         </ul>
-        <div class="add"><router-link :to="{path:'/song/details/all', query:{id}}">播放全部</router-link></div>
+        <!--<div class="add"><router-link :to="{path:'/song/details/all', query:{id}}">播放全部</router-link></div>-->
         <section class="content">
             <div class="list">
                 <ul class="item clear_fix" ref="list">
@@ -34,6 +34,7 @@
             </div>
         </section>
         <player :playerAdd="playerAdd"></player>
+        <Footer></Footer>
     </div>
 </template>
 
@@ -102,17 +103,40 @@
             changeData(item, index) {
                 this.id = item.id;
             },
-            addToPlay(item, isPlay) {
-                /* eslint no-unused-expressions: ["error", { "allowTernary": true }] */
-                isPlay = isPlay === undefined ? false : true;
-                this.playerAdd.push({
-                    album_big: item['album_big'],
-                    album_min: item['album_min'],
-                    albummid: item['albummid'],
-                    singer: item['singer'],
-                    songmid: item['songmid'],
-                    isPlay
-                });
+            async addToPlay(item, isPlay) {
+                const albummid = item['albummid'];
+                let index = 0;
+                this.playerAdd && this.playerAdd.some((item, i) => {
+                    index = item.albummid === albummid? i : 0;
+                    return Boolean(index);
+                })
+                if (index) {
+                    let repeat = this.playerAdd.splice(index, 1);
+                    this.playerAdd.push(repeat[0]);
+                } else {
+                    const albummid = item['albummid'];
+                    const songid = item['songid'];
+                    const songmid = item['songmid'];
+                    const songname = item['songname'];
+                    let url;
+                    await this.axios.get(`http://39.106.122.216:3000/music?songid=${songid}&songmid=${songmid}`).then(({data}) => {
+                        url = data;
+                    });
+                    /* eslint no-unused-expressions: ["error", { "allowTernary": true }] */
+                    isPlay = isPlay === undefined ? false : true;
+                    this.playerAdd.push({
+                        album_big: item['album_big'],
+                        album_min: item['album_min'],
+                        singer: item['singer'],
+                        albummid,
+                        songid,
+                        songmid,
+                        songname,
+                        url,
+                        isPlay
+                    });
+                }
+                this.playerAdd = [...new Set(this.playerAdd)];
             }
         },
         computed: {
@@ -122,7 +146,7 @@
         },
         created() {
             const that = this;
-            this.axios('http://45.32.150.237:3000/top?topidurl=3').then(({ data }) => {
+            this.axios('http://39.106.122.216:3000/top?topidurl=3').then(({ data }) => {
                 let song = data.songlist.splice(0, 64);
                 let firstContainer = song.splice(0, 16);
                 that.song = [firstContainer, song.splice(0, 16), song.splice(0, 16), song.splice(0, 16), firstContainer];
