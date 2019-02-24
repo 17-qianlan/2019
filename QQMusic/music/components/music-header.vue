@@ -8,9 +8,9 @@
         <section class="right">
             <div class="input">
                 <input type="text" />
-                <router-lingk to="/not">
+                <router-link to="/not">
                     <span class="iconfont icon-sousuo1"></span>
-                </router-lingk>
+                </router-link>
             </div>
             <div class="user">
                 <router-link to="/not">登录</router-link>

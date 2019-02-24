@@ -248,10 +248,12 @@
                 // 是否循环播放, 未开发
             }
         },
-        mounted(){
-            this.audio = this.$refs.audio;
-            this.barTotalWidth = this.$refs.play.offsetWidth;
-            this.volumeEle = this.$refs.volume;
+        created(){
+            this.$nextTick(() => {
+                this.audio = this.$refs.audio;
+                this.barTotalWidth = this.$refs.play.offsetWidth;
+                this.volumeEle = this.$refs.volume;
+            })
         }
     };
 </script>

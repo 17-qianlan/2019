@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>浅蓝</title>
+        <style type="text/css"></style>
+    </head>
+    <body>
+        <input type="text"><br>
+        <span></span><br>
+        <button>点我每次加10</button>
+        <script>
+            (function(){
+                let data = {
+                    x: 10
+                }
+                data = new Proxy(data, {
+                    get(target, key) {
+                        console.log('get');
+                        return target[key];
+                    },
+                    set(target, key, value) {
+                        console.log('set');
+                        target[key] = value;
+                    }
+                })
+                let oInput = document.querySelector('input');
+                let oSpan = document.querySelector('span');
+                let oButton = document.querySelector('button');
+                oSpan.innerHTML = oInput.value = data.x;
+                oInput.oninput = function() {
+                    oSpan.innerHTML = data.x = this.value*1;
+                }
+                oButton.onclick = function() {
+                    data.x += 10;
+                    oSpan.innerHTML = oInput.value = data.x;
+                }
+            })();
+        </script>
+    </body>
+</html>
