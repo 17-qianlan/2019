@@ -1,0 +1,23 @@
+/*0.39*/
+.col-12-39 {
+    position: relative;
+    width: 33.33%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+/*0.2*/
+.col-12-5{
+    position: relative;
+    width: 20%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+/*在去除内边距后, 这里需要在有需要的地方添加上padding: 0 15px;*/
+.padding-15 {
+    padding-top: 0;
+    padding-right: 15px;
+    padding-bottom: 0;
+    padding-left: 15px;
+}
